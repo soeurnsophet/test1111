@@ -20,12 +20,12 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
+        User::firstOrCreate([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
 
-        Profiles::create([
+        Profiles::firstOrCreate([
             'user_id' => 1,
             'phone' => '123-456-7890',
             'address' => '123 Main St, Anytown, USA'
