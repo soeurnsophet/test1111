@@ -28,9 +28,15 @@ COPY laravel /var/www/html
 RUN chown -R www-data:www-data /var/www/html/bootstrap/cache \
     && chown -R www-data:www-data /var/www/html/storage \
     && chmod +x /usr/local/bin/*.sh
+COPY docker/laravel/entrypoint.production.sh /usr/local/bin/entrypoint.production.sh
+
+RUN chmod +x /usr/local/bin/entrypoint.production.sh
+
 
 RUN composer install
 
 EXPOSE 8000
 
-CMD ["sh", "-c", "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8000}"]
+CMD ["bash", "/usr/local/bin/entrypoint.production.sh"]
+
+# CMD ["sh", "-c", "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8000}"]
