@@ -1,15 +1,11 @@
 #!/bin/bash
 set -e
 
-composer install --no-interaction --prefer-dist --optimize-autoloader
-
+composer install
 npm install
-npm run build
-
-php artisan key:generate --force
-
-php artisan migrate --force
-
+php artisan key:generate
+php artisan migrate
+php artisan db:seed
 # php artisan storage:link
 
-exec php artisan serve --host=0.0.0.0 --port="${PORT:-8000}"
+exec php artisan serve --host=0.0.0.0 --port=8000

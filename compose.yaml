@@ -8,13 +8,12 @@ services:
         volumes:
             - ./laravel:/var/www/html
             - laravel_vendor:/var/www/html/vendor
-            - ./docker/laravel/entrypoint.development.sh:/usr/local/bin/entrypoint.development.sh
         ports:
             - "8000:8000"
             - "8080:8080"
         depends_on:
             - mysql-service
-        command: [ "bash", "/usr/local/bin/entrypoint.development.sh" ]
+        command: [ "bash", "/usr/local/bin/entrypoint.production.sh" ]
 
     # vuejs-service:
     #     container_name: vuejs-container
@@ -56,6 +55,7 @@ services:
             PMA_PASSWORD: root
         ports:
             - "9000:80"
+
 volumes:
     mysql_data:
     laravel_vendor:

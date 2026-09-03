@@ -19,6 +19,10 @@ RUN apt-get update && apt-get install -y \
 
 COPY docker/laravel/*.sh /usr/local/bin/
 
+# Automatically fix Windows line-endings (CRLF to LF) and make scripts executable
+RUN sed -i -e 's/\r$//' /usr/local/bin/*.sh \
+    && chmod +x /usr/local/bin/*.sh
+
 COPY --from=composer:2.9 /usr/bin/composer /usr/bin/composer
 
 COPY --from=node:latest /usr/local /usr/local
@@ -26,17 +30,8 @@ COPY --from=node:latest /usr/local /usr/local
 COPY laravel /var/www/html
 
 RUN chown -R www-data:www-data /var/www/html/bootstrap/cache \
-    && chown -R www-data:www-data /var/www/html/storage \
-    && chmod +x /usr/local/bin/*.sh
-COPY docker/laravel/entrypoint.production.sh /usr/local/bin/entrypoint.production.sh
-
-RUN chmod +x /usr/local/bin/entrypoint.production.sh
-
+    && chown -R www-data:www-data /var/www/html/storage
 
 RUN composer install
 
 EXPOSE 8000
-
-CMD ["bash", "/usr/local/bin/entrypoint.production.sh"]
-
-# CMD ["sh", "-c", "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8000}"]
