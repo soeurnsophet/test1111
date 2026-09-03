@@ -20,16 +20,17 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::firstOrCreate([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // User::firstOrCreate([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        //     'password' => bcrypt('password')
+        // ]);
 
-        Profiles::firstOrCreate([
-            'user_id' => 1,
-            'phone' => '123-456-7890',
-            'address' => '123 Main St, Anytown, USA'
-        ]);
+        // Profiles::firstOrCreate([
+        //     'user_id' => 1,
+        //     'phone' => '123-456-7890',
+        //     'address' => '123 Main St, Anytown, USA'
+        // ]);
 
         // Product::factory(20)->create();
 

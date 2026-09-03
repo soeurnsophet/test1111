@@ -36,4 +36,4 @@ RUN composer install
 
 EXPOSE 8000
 
-CMD ["bash", "/usr/local/bin/entrypoint.production.sh"]
+# CMD ["bash", "/usr/local/bin/entrypoint.production.sh"]
